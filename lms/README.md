@@ -1,4 +1,4 @@
-# LMS Koperasi Desa Merah Putih — UI Prototype
+# LMS Koperasi Desa Kelurahan Merah Putih 
 
 Standalone React + Vite + Tailwind CSS prototype for the LMS interface.
 
