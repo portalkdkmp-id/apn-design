@@ -4,14 +4,16 @@ import { FeatureCard } from '../../components/landing/FeatureCard'
 import { Stats } from '../../components/landing/Stats'
 import { SectionBadge } from '../../components/landing/SectionBadge'
 import { features } from '../../data/content'
+import { AuroraBackground } from '../../components/landing/AuroraBackground'
 import logo from '../../assets/logokdkmp.png'
 
 export function HomePage({ dark, onToggleTheme }) {
   return (
     <div className={`min-h-screen transition-colors duration-500 ${dark ? 'bg-[#100b0c] text-[#f7f2ee]' : 'bg-white text-[#201415]'}`}>
-      <Header dark={dark} onToggleTheme={onToggleTheme} />
-      <div className="aurora-field"><div className="aurora-blob aurora-blob-a" /><div className="aurora-blob aurora-blob-b" /><div className="aurora-blob aurora-blob-c" /></div>
+      <AuroraBackground />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-60 dark:opacity-40" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, ${dark ? 'rgba(247,242,238,0.045)' : 'rgba(32,20,21,0.05)'} 1px, transparent 1px)`, backgroundSize: '34px 34px', maskImage: 'radial-gradient(ellipse 80% 60% at 50% 20%, black 30%, transparent 75%)' }} />
+
+      <Header dark={dark} onToggleTheme={onToggleTheme} />
 
       <main>
         <Hero />

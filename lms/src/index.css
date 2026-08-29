@@ -13,41 +13,304 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://lms.agrinaspangan.id/build/assets/instrument-sans-400-normal-DRC__1Mx.woff2") format("woff2");
+  src: url("https://lms.agrinaspangan.id/build/assets/instrument-sans-400-normal-DRC__1Mx.woff2")
+    format("woff2");
 }
+
 @font-face {
   font-family: "Instrument Sans";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("https://lms.agrinaspangan.id/build/assets/instrument-sans-500-normal-Dk9ku72i.woff2") format("woff2");
+  src: url("https://lms.agrinaspangan.id/build/assets/instrument-sans-500-normal-Dk9ku72i.woff2")
+    format("woff2");
 }
+
 @font-face {
   font-family: "Instrument Sans";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("https://lms.agrinaspangan.id/build/assets/instrument-sans-600-normal-B7fBEWYG.woff2") format("woff2");
+  src: url("https://lms.agrinaspangan.id/build/assets/instrument-sans-600-normal-B7fBEWYG.woff2")
+    format("woff2");
 }
 
-:root { font-family: var(--font-body); font-synthesis: none; text-rendering: optimizeLegibility; }
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; overflow-x: hidden; font-family: var(--font-body); background: #fff; }
-button, a, input, select { -webkit-tap-highlight-color: transparent; }
-button, a { cursor: pointer; }
+:root {
+  font-family: var(--font-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 
-@keyframes aurora-float-1 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(6%,5%,0) scale(1.1); } }
-@keyframes aurora-float-2 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-7%,6%,0) scale(1.12); } }
-@keyframes aurora-float-3 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(5%,-6%,0) scale(1.08); } }
-.aurora-field { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.aurora-blob { position: absolute; border-radius: 9999px; filter: blur(50px); will-change: transform; }
-.aurora-blob-a { top:-25%; left:-12%; width:68vw; height:68vw; background:radial-gradient(circle at 50% 50%,rgba(255,176,190,.55) 0%,rgba(255, 151, 170, 0) 70%); animation:aurora-float-1 24s ease-in-out infinite; }
-.aurora-blob-b { top:5%; right:-18%; width:60vw; height:60vw; background:radial-gradient(circle at 50% 50%,rgba(255,205,200,.4) 0%,rgba(255,205,200,0) 72%); animation:aurora-float-2 28s ease-in-out infinite; }
-.aurora-blob-c { bottom:-22%; left:22%; width:56vw; height:56vw; background:radial-gradient(circle at 50% 50%,rgba(255,222,226,.4) 0%,rgba(255,222,226,0) 72%); animation:aurora-float-3 32s ease-in-out infinite; }
-.dark .aurora-blob-a { background:radial-gradient(circle at 50% 50%,rgba(151, 11, 34, 0.55) 0%,rgba(130,26,44,0) 70%); }
-.dark .aurora-blob-b { background:radial-gradient(circle at 50% 50%,rgba(150, 10, 38, 0.45) 0%,rgba(54, 5, 15, 0) 72%); }
-.dark .aurora-blob-c { background:radial-gradient(circle at 50% 50%,rgba(60,10,20,.4) 0%,rgba(60,10,20,0) 72%); }
+  /* aurora palette — light mode: white / pink / gold */
+  --aurora-gold: #ffd98a;
+  --aurora-pink: #ff8fa3;
+  --aurora-red: #ff4d6d;
+  --aurora-sparkle: rgba(253, 51, 44, 0.95);
+  --aurora-wash-1: rgba(255, 140, 160, 0.35);
+  --aurora-wash-2: rgba(255, 200, 150, 0.25);
+}
 
-.auth-bg { position:absolute; inset:-20%; pointer-events:none; background:radial-gradient(circle at 15% 20%,rgba(255,255,255,.24),transparent 34%),radial-gradient(circle at 85% 15%,rgba(255,215,215,.32),transparent 32%),linear-gradient(180deg,#ffb8ba 0%,#ff9b9f 44%,#e90c12 100%); }
-.dark .auth-bg {background: radial-gradient(circle at 15% 15%, rgba(255, 60, 70, 0.22), transparent 34%), radial-gradient(circle at 85% 20%, rgba(255, 100, 100, 0.16), transparent 32%), linear-gradient(180deg,#260001 0%,#570006 35%,#b30c11 68%,#f34b50 100%);}
-@media (prefers-reduced-motion: reduce) { .aurora-blob { animation:none; } }
+.dark {
+  /* aurora palette — dark mode: black / burgundy */
+  --aurora-gold: #7a1420;
+  --aurora-pink: #a30f28;
+  --aurora-red: #4a0512;
+  --aurora-sparkle: rgba(255, 170, 180, 0.65);
+  --aurora-wash-1: rgba(120, 8, 25, 0.4);
+  --aurora-wash-2: rgba(60, 4, 12, 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  background: #fff;
+}
+
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+/* =====================================================
+   AURORA FIELD (SVG ribbons + soft wash + sparkles)
+===================================================== */
+
+.aurora-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* soft diffused color wash sitting behind the crisp ribbons,
+   gives the overall pink/burgundy tint seen across the whole hero */
+
+.aurora-wash {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform, opacity;
+}
+
+.aurora-wash-a {
+  top: -20%;
+  left: -10%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, var(--aurora-wash-1) 0%, transparent 70%);
+  animation: wash-pulse-1 20s ease-in-out infinite;
+}
+
+.aurora-wash-b {
+  bottom: -25%;
+  right: -10%;
+  width: 65vw;
+  height: 65vw;
+  background: radial-gradient(circle, var(--aurora-wash-2) 0%, transparent 70%);
+  animation: wash-pulse-2 24s ease-in-out infinite;
+}
+
+@keyframes wash-pulse-1 {
+  0%,
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.2) translate3d(4%, 5%, 0);
+    opacity: 0.9;
+  }
+}
+
+@keyframes wash-pulse-2 {
+  0%,
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scale(1.18) translate3d(-4%, -4%, 0);
+    opacity: 0.85;
+  }
+}
+
+/* ribbon groups — animated with transform only, since morphing
+   an SVG path shape needs JS; translate/rotate/scale on the whole
+   ribbon still reads as flowing motion because the path itself
+   is an elongated curve */
+
+.aurora-ribbon {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.aurora-ribbon-tl {
+  animation: ribbon-flow-1 13s ease-in-out infinite;
+}
+
+.aurora-ribbon-tr {
+  animation: ribbon-flow-2 15s ease-in-out infinite;
+}
+
+.aurora-ribbon-bl {
+  animation: ribbon-flow-3 16s ease-in-out infinite;
+}
+
+.aurora-ribbon-br {
+  animation: ribbon-flow-4 14s ease-in-out infinite;
+}
+
+@keyframes ribbon-flow-1 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translate3d(3%, 4%, 0) rotate(3deg) scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes ribbon-flow-2 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translate3d(-3%, 3%, 0) rotate(-3deg) scale(1.06);
+    opacity: 0.95;
+  }
+}
+
+@keyframes ribbon-flow-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translate3d(3%, -3%, 0) rotate(-2deg) scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes ribbon-flow-4 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translate3d(-3%, -4%, 0) rotate(2deg) scale(1.06);
+    opacity: 0.95;
+  }
+}
+
+/* sparkles */
+
+.aurora-star {
+  animation: aurora-star-twinkle 3.5s ease-in-out infinite;
+}
+
+@keyframes aurora-star-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    r: 1.5;
+  }
+
+  50% {
+    opacity: 1;
+    r: 3;
+  }
+}
+
+/* =====================================================
+   AUTH BACKGROUND
+===================================================== */
+
+.auth-bg {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255, 255, 255, 0.3),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(255, 180, 185, 0.4),
+      transparent 32%
+    ),
+    linear-gradient(
+      180deg,
+      #ffb8ba 0%,
+      #ff9b9f 44%,
+      #e90c12 100%
+    );
+}
+
+.dark .auth-bg {
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(255, 55, 70, 0.3),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(255, 100, 110, 0.22),
+      transparent 32%
+    ),
+    linear-gradient(
+      180deg,
+      #260001 0%,
+      #570006 35%,
+      #b30c11 68%,
+      #f34b50 100%
+    );
+}
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-wash,
+  .aurora-ribbon,
+  .aurora-star {
+    animation: none;
+  }
+}
