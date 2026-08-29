@@ -45,14 +45,15 @@ export function LoginPage({ dark, onToggleTheme }) {
         {submitted && <div className="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">Form siap diintegrasikan ke endpoint <strong>POST /login</strong>.</div>}
 
         <form onSubmit={submit} noValidate className="space-y-5">
-          <AuthInput label="Email atau nomor handphone" name="login" value={form.login} onChange={update} autoComplete="username" error={errors.login} />
+          <AuthInput label="Email atau nomor handphone" name="login" value={form.login} onChange={update} placeholder="nama@email.com/08XXXXXXXXXX" autoComplete="username" error={errors.login} />
 
           <div>
             <div className="mb-2 flex items-center justify-between">
               <label htmlFor="password" className="text-[14px] font-medium text-[#24191a] dark:text-[#f2dddd]">Kata sandi</label>
-              <a href="/forgot-password" className="text-[14px] text-[#24191a] transition hover:text-[#c80008] dark:text-[#f2dddd] dark:hover:text-red-300">Lupa kata sandi?</a>
+              <a href="/forgot-password" className="text-[14px] text-[#24191a] transition hover:text-[#c80008] dark:text-[#f2dddd] dark:hover:text-red-300">
+              <span className="underline underline-offset-1">Lupa kata sandi?</span></a>
             </div>
-            <PasswordInput label="" name="password" value={form.password} onChange={update} autoComplete="current-password" error={errors.password} />
+            <PasswordInput label="" name="password" value={form.password} onChange={update} placeholder="Masukkan kata sandi" autoComplete="current-password" error={errors.password} />
           </div>
 
           <label className="flex cursor-pointer items-center gap-3 pt-0.5 text-[14px] text-[#24191a] dark:text-[#f2dddd]">
@@ -65,7 +66,9 @@ export function LoginPage({ dark, onToggleTheme }) {
           </button>
         </form>
 
-        <AuthFooterLink prompt="Belum punya akun?" href="/register">Daftar</AuthFooterLink>
+        <AuthFooterLink prompt="Belum punya akun?" href="/register">
+        <span className="underline underline-offset-1">Daftar
+        </span></AuthFooterLink>
       </AuthCard>
     </AuthLayout>
   )

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 
-export function PasswordInput({ label, name, value, onChange, error, autoComplete, disabled = false }) {
+export function PasswordInput({ label, name, value, onChange, placeholder = '', error, autoComplete, disabled = false }) {
   const [visible, setVisible] = useState(false)
   return (
     <div>
       {label && <label htmlFor={name} className="mb-2 block text-[14px] font-medium text-[#24191a] dark:text-[#f2dddd]">{label}</label>}
       <div className="relative">
-        <input id={name} name={name} type={visible ? 'text' : 'password'} value={value} onChange={onChange} autoComplete={autoComplete} required disabled={disabled}
+        <input id={name} name={name} type={visible ? 'text' : 'password'} value={value} onChange={onChange} placeholder={placeholder} autoComplete={autoComplete} required disabled={disabled}
           className={[
             'h-12 w-full rounded-[7px] border bg-white px-4 pr-12 text-[14px] text-[#201415] outline-none transition focus:border-[#c80008] focus:ring-2 focus:ring-[#c80008]/10 dark:bg-white dark:text-[#201415]',
             error ? 'border-red-500' : 'border-transparent', disabled ? 'cursor-not-allowed opacity-60' : '',

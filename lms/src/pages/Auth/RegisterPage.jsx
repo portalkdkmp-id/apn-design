@@ -68,9 +68,9 @@ export function RegisterPage({ dark, onToggleTheme }) {
         {submitted && <div className="mb-7 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">Form siap diintegrasikan ke endpoint <strong>POST /register</strong>.</div>}
 
         <form onSubmit={submit} noValidate className="space-y-5">
-          <AuthInput label="Nama Lengkap" name="name" value={form.name} onChange={update} autoComplete="name" error={errors.name} />
-          <AuthInput label="Alamat Email" name="email" type="email" value={form.email} onChange={update} autoComplete="email" error={errors.email} />
-          <AuthInput label="Nomor WhatsApp" name="phone" type="tel" value={form.phone} onChange={update} autoComplete="tel" error={errors.phone} />
+          <AuthInput label="Nama Lengkap" name="name" value={form.name} onChange={update} placeholder="NAMA LENGKAP"autoComplete="name" error={errors.name} />
+          <AuthInput label="Alamat Email" name="email" type="email" value={form.email} onChange={update} placeholder="nama@email.com" autoComplete="email" error={errors.email} />
+          <AuthInput label="Nomor WhatsApp" name="phone" type="tel" value={form.phone} onChange={update} placeholder="08XXXXXXXXXX" autoComplete="tel" error={errors.phone} />
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <RegionSelect label="Provinsi" name="province_id" value={form.province_id} onChange={update} options={provinces} error={errors.province_id} />
@@ -79,15 +79,17 @@ export function RegisterPage({ dark, onToggleTheme }) {
             <RegionSelect label="Kelurahan/Desa" name="village_id" value={form.village_id} onChange={update} options={villageOptions} disabled={!form.district_id} error={errors.village_id} />
           </div>
 
-          <AuthInput label="Kata Sandi" name="password" type="password" value={form.password} onChange={update} autoComplete="new-password" error={errors.password} />
-          <AuthInput label="Konfirmasi Kata Sandi" name="password_confirmation" type="password" value={form.password_confirmation} onChange={update} autoComplete="new-password" error={errors.password_confirmation} />
+          <PasswordInput label="Kata Sandi" name="password" type="password" value={form.password} onChange={update} placeholder="Masukkan kata sandi"autoComplete="new-password" error={errors.password} />
+          <PasswordInput label="Konfirmasi Kata Sandi" name="password_confirmation" type="password" value={form.password_confirmation} onChange={update} placeholder="Ulangi kata sandi" autoComplete="new-password" error={errors.password_confirmation} />
 
           <button type="submit" className="mt-5 h-14 w-full rounded-[6px] bg-[#d40008] text-[16px] font-medium text-white shadow-lg shadow-red-900/10 transition hover:bg-[#b80007] focus:outline-none focus:ring-4 focus:ring-red-500/20">
             Buat Akun
           </button>
         </form>
 
-        <AuthFooterLink prompt="Sudah punya akun?" href="/login">Masuk</AuthFooterLink>
+        <AuthFooterLink prompt="Sudah punya akun?" href="/login">
+         <span className="underline underline-offset-1">Masuk</span>
+        </AuthFooterLink>
       </AuthCard>
     </AuthLayout>
   )
