@@ -49,6 +49,5 @@ button, a { cursor: pointer; }
 .dark .aurora-blob-c { background:radial-gradient(circle at 50% 50%,rgba(60,10,20,.4) 0%,rgba(60,10,20,0) 72%); }
 
 .auth-bg { position:absolute; inset:-20%; pointer-events:none; background:radial-gradient(circle at 15% 20%,rgba(255,255,255,.24),transparent 34%),radial-gradient(circle at 85% 15%,rgba(255,215,215,.32),transparent 32%),linear-gradient(180deg,#ffb8ba 0%,#ff9b9f 44%,#e90c12 100%); }
-.dark .auth-bg { background:radial-gradient(circle at 15% 15%,rgba(170,15,22,.25),transparent 34%),radial-gradient(circle at 85% 25%,rgba(255,70,70,.12),transparent 30%),linear-gradient(180deg,#5c0305 0%,#8a080b 48%,#b20b10 100%); }
-
+.dark .auth-bg {background: radial-gradient(circle at 15% 15%, rgba(255, 60, 70, 0.22), transparent 34%), radial-gradient(circle at 85% 20%, rgba(255, 100, 100, 0.16), transparent 32%), linear-gradient(180deg,#260001 0%,#570006 35%,#b30c11 68%,#f34b50 100%);}
 @media (prefers-reduced-motion: reduce) { .aurora-blob { animation:none; } }
