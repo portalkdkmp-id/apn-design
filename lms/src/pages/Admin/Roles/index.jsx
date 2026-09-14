@@ -105,6 +105,8 @@ export default function AdminRolesIndex() {
 
   return (
     <AdminLayout
+      title="Kelola role"
+      subtitle="Atur role dan hubungan permission dari satu halaman yang ringkas."
       breadcrumbs={[
         { label: 'Superadmin', href: '/admin/dashboard' },
         { label: 'Role' },
@@ -116,13 +118,6 @@ export default function AdminRolesIndex() {
         </Button>
       }
     >
-      <section className="mb-2">
-        <h1 className="text-2xl font-semibold">Kelola role</h1>
-        <p className="text-sm text-black/50 dark:text-white/50">
-          Atur role dan hubungan permission dari satu halaman yang ringkas.
-        </p>
-      </section>
-
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">

@@ -16,14 +16,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import { useAuth } from '../../context/AuthContext'
 import { getUserDashboardPayload } from '../../data/dashboard'
 
-// Struktur halaman ini mengikuti `resources/js/pages/dashboard.tsx` di
-// project lms_apn (dashboard untuk role selain superadmin), hanya
-// komponennya diganti memakai design system apn-design-test.
-const STAT_STYLES = {
-  exams: 'border-orange-200 bg-orange-50 text-orange-950 dark:border-orange-900/60 dark:bg-orange-950/30 dark:text-orange-100',
-  learning: 'border-sky-200 bg-sky-50 text-sky-950 dark:border-sky-900/60 dark:bg-sky-950/30 dark:text-sky-100',
-  progress: 'border-purple-200 bg-purple-50 text-purple-950 dark:border-purple-900/60 dark:bg-purple-950/30 dark:text-purple-100',
-  modules: 'border-emerald-200 bg-emerald-50 text-emerald-950 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-100',
+const DASHBOARD_CARD_COLORS = {
+  'Ujian Aktif': '#c81e2a',
+  'Learning Path': '#d32b36',
+  'Progress Ujian': '#e9434e',
+  'Progress Modul': '#fa636d',
 }
 
 export function UserDashboardPage() {
@@ -40,7 +37,6 @@ export function UserDashboardPage() {
       description: 'Ujian tersedia sesuai role dan jadwal.',
       href: '/tests',
       icon: ClipboardCheck,
-      className: STAT_STYLES.exams,
     },
     {
       label: 'Learning Path',
@@ -48,7 +44,6 @@ export function UserDashboardPage() {
       description: `${stats.modules_count} modul aktif tersedia.`,
       href: '/learning-paths',
       icon: BookOpen,
-      className: STAT_STYLES.learning,
     },
     {
       label: 'Progress Ujian',
@@ -56,7 +51,6 @@ export function UserDashboardPage() {
       description: 'Sudah dikerjakan / total ujian.',
       href: '/tests',
       icon: TrendingUp,
-      className: STAT_STYLES.progress,
     },
     {
       label: 'Progress Modul',
@@ -64,7 +58,6 @@ export function UserDashboardPage() {
       description: 'Modul dipelajari / total modul.',
       href: '/learning-paths',
       icon: Layers3,
-      className: STAT_STYLES.modules,
     },
   ]
 
@@ -87,22 +80,26 @@ export function UserDashboardPage() {
       </div>
 
       <section className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {summaryStats.map((stat) => (
-          <Link key={stat.label} to={stat.href} className="group block">
-            <Card className={`h-full rounded-2xl transition duration-200 hover:-translate-y-1 hover:shadow-md ${stat.className}`}>
-              <CardHeader className="flex-row items-start justify-between space-y-0">
-                <div className="space-y-1">
-                  <CardDescription className="text-current/70">{stat.label}</CardDescription>
-                  <CardTitle className="text-3xl font-semibold">{stat.value}</CardTitle>
-                </div>
-                <stat.icon size={20} className="opacity-70" />
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-current/75">{stat.description}</p>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
+        {summaryStats.map((stat) => {
+          const cardColor = DASHBOARD_CARD_COLORS[stat.label] ?? '#c81e2a'
+
+          return (
+            <Link key={stat.label} to={stat.href} className="group block">
+              <Card className="h-full rounded-2xl transition duration-200 hover:-translate-y-1 hover:shadow-md" style={{ borderLeft: `4px solid ${cardColor}` }}>
+                <CardHeader className="flex-row items-start justify-between space-y-0">
+                  <div className="space-y-1">
+                    <CardDescription>{stat.label}</CardDescription>
+                    <CardTitle className="text-3xl font-semibold text-[#1f2937] dark:text-white">{stat.value}</CardTitle>
+                  </div>
+                  <stat.icon size={20} className="opacity-70" />
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-black/50 dark:text-white/50">{stat.description}</p>
+                </CardContent>
+              </Card>
+            </Link>
+          )
+        })}
       </section>
 
       <Card className="mb-6">

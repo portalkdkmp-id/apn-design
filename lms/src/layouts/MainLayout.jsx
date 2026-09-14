@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Fragment, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   BookOpen,
   ChevronRight,
   ClipboardCheck,
   LayoutGrid,
   Building2,
+  Settings,
   ShieldCheck,
   Menu,
   X,
@@ -24,6 +25,7 @@ const MENU = [
   { label: 'DASHBOARD', icon: LayoutGrid, href: '/dashboard' },
   { label: 'TES SAYA', icon: ClipboardCheck, href: '/tests' },
   { label: 'MATERI', icon: BookOpen, href: '/learning-paths' },
+  { label: 'SETTINGS', icon: Settings, href: '/settings' },
 ]
 
 const ROLE_LABELS = {
@@ -87,6 +89,41 @@ function Sidebar({ open, onClose }) {
         <nav className="space-y-1 overflow-y-auto px-1 scrollbar-none">
           {MENU.map(({ label, icon: Icon, href }) => {
             const active = isPathActive(location.pathname, href)
+
+            if (label === 'SETTINGS' && user?.division) {
+              return (
+                <Fragment key="area-before-settings">
+                  <Link
+                    key="division-area"
+                    to="/division/dashboard"
+                    onClick={onClose}
+                    className={`
+                      flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left
+                      text-[10px] font-medium tracking-[0.04em] transition-all
+                      ${isPathActive(location.pathname, '/division/dashboard') ? 'bg-white/20 shadow-sm' : 'hover:bg-white/10'}
+                    `}
+                  >
+                    <Building2 size={18} strokeWidth={2} />
+                    <span>AREA {user.division.name.toUpperCase()}</span>
+                  </Link>
+
+                  <Link
+                    key={label}
+                    to={href}
+                    onClick={onClose}
+                    className={`
+                      flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left
+                      text-[10px] font-medium tracking-[0.04em] transition-all
+                      ${active ? 'bg-white/20 shadow-sm' : 'hover:bg-white/10'}
+                    `}
+                  >
+                    <Icon size={18} strokeWidth={2} />
+                    <span>{label}</span>
+                  </Link>
+                </Fragment>
+              )
+            }
+
             return (
               <Link
                 key={label}
@@ -103,21 +140,6 @@ function Sidebar({ open, onClose }) {
               </Link>
             )
           })}
-
-          {user?.division && (
-            <Link
-              to="/division/dashboard"
-              onClick={onClose}
-              className={`
-                flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left
-                text-[10px] font-medium tracking-[0.04em] transition-all
-                ${isPathActive(location.pathname, '/division/dashboard') ? 'bg-white/20 shadow-sm' : 'hover:bg-white/10'}
-              `}
-            >
-              <Building2 size={18} strokeWidth={2} />
-              <span>AREA {user.division.name.toUpperCase()}</span>
-            </Link>
-          )}
 
           {hasRole('superadmin') && (
             <Link
@@ -152,11 +174,12 @@ function Sidebar({ open, onClose }) {
 export function MainLayout({ title, subtitle, breadcrumbs = [], actions, children }) {
   const { dark, toggleTheme } = useTheme()
   const { logout } = useAuth()
+  const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const handleLogout = () => {
     logout()
-    window.location.replace('/')
+    navigate('/', { replace: true })
   }
 
   return (

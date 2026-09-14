@@ -111,21 +111,21 @@ export default function AdminUsersIndex() {
       }
     >
       <section className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        {USER_STATS.map((stat) => (
-          <Card
-            key={stat.label}
-            className="border-0 text-white shadow-sm"
-            style={{ backgroundColor: USER_STAT_COLORS[stat.label] ?? '#c81e2a' }}
-          >
-            <CardHeader className="space-y-1">
-              <CardDescription className="text-white/80">{stat.label}</CardDescription>
-              <CardTitle className="text-3xl font-semibold text-white">{stat.value}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-white/80">{stat.description}</p>
-            </CardContent>
-          </Card>
-        ))}
+        {USER_STATS.map((stat) => {
+          const cardColor = USER_STAT_COLORS[stat.label] ?? '#c81e2a'
+
+          return (
+            <Card key={stat.label} style={{ borderLeft: `4px solid ${cardColor}` }}>
+              <CardHeader className="space-y-1">
+                <CardDescription>{stat.label}</CardDescription>
+                <CardTitle className="text-3xl font-semibold text-[#1f2937] dark:text-white">{stat.value}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-black/50 dark:text-white/50">{stat.description}</p>
+              </CardContent>
+            </Card>
+          )
+        })}
       </section>
 
       <Card>

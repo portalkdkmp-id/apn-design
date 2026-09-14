@@ -8,15 +8,11 @@ import { useAuth } from '../src/context/AuthContext'
 // - Belum login -> redirect ke /login
 // - Login tapi role/permission tidak sesuai -> redirect ke home role dia sendiri
 export function ProtectedRoute({ roles, permission, children }) {
-  const { user, isAuthenticated, hasRole, can, homePath, isLoggingOut } = useAuth()
+  const { user, isAuthenticated, hasRole, can, homePath } = useAuth()
   const location = useLocation()
 
-  if (isLoggingOut) {
-    return <Navigate to="/" replace />
-  }
-
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location.pathname }} />
+    return <Navigate to="/" replace state={{ from: location.pathname }} />
   }
 
   const roleAllowed = !roles || hasRole(roles)

@@ -4,8 +4,15 @@ import { HomePage } from './pages/Home/HomePage'
 import { LoginPage } from './pages/Auth/LoginPage'
 import { RegisterPage } from './pages/Auth/RegisterPage'
 import { DashboardPage } from './pages/Dashboard/DashboardPage'
-import { ComingSoonPage } from './pages/ComingSoonPage'
 import { DivisionDashboardPage } from './pages/Division/DashboardPage'
+import { LearningPathsIndex } from './pages/LearningPaths/index'
+import { LearningPathShow } from './pages/LearningPaths/show'
+import { LearningPathModuleShow } from './pages/LearningPaths/modules/show'
+import { TestModulesIndex } from './pages/Tests/modules/index'
+import { TestModuleShow } from './pages/Tests/modules/show'
+import { TestAttemptShow } from './pages/Tests/attempts/show'
+import { TestAttemptResult } from './pages/Tests/attempts/result'
+import { SettingsIndex } from './pages/Settings/index'
 import { ToastProvider } from './components/ui/Toast'
 import { useTheme } from './hooks/useTheme'
 import { AuthProvider } from './context/AuthContext'
@@ -37,7 +44,7 @@ import AdminQuizModulesIndex from './pages/Admin/Quiz-modules/index'
 /* quiz-analytics atau analitik tes */
 import AdminQuizAnalyticsIndex from './pages/Admin/Quiz-analytics/index'
 /* settings */
-import AdminSettingsIndex from './pages/Admin/Settings/index'
+import AdminSettingsIndex from './pages/Admin/settings/index'
 
 function App() {
   const { dark, toggleTheme } = useTheme()
@@ -86,20 +93,72 @@ function App() {
               }
             />
 
-            {/* Placeholder, menyusul di iterasi berikutnya */}
-            <Route
-              path="/tests"
-              element={
-                <ProtectedRoute roles={['manager', 'staff']}>
-                  <ComingSoonPage title="Tes Saya" description="Daftar ujian yang bisa kamu kerjakan akan tampil di sini." />
-                </ProtectedRoute>
-              }
-            />
+            {/* Materi (Learning Path) */}
             <Route
               path="/learning-paths"
               element={
                 <ProtectedRoute roles={['manager', 'staff']}>
-                  <ComingSoonPage title="Materi" description="Daftar learning path yang bisa kamu pelajari akan tampil di sini." />
+                  <LearningPathsIndex />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/learning-paths/:id"
+              element={
+                <ProtectedRoute roles={['manager', 'staff']}>
+                  <LearningPathShow />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/learning-paths/:id/modules/:moduleId"
+              element={
+                <ProtectedRoute roles={['manager', 'staff']}>
+                  <LearningPathModuleShow />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Tes Saya (Ujian) */}
+            <Route
+              path="/tests"
+              element={
+                <ProtectedRoute roles={['manager', 'staff']}>
+                  <TestModulesIndex />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/tests/:id"
+              element={
+                <ProtectedRoute roles={['manager', 'staff']}>
+                  <TestModuleShow />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/tests/attempts/:attemptId"
+              element={
+                <ProtectedRoute roles={['manager', 'staff']}>
+                  <TestAttemptShow />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/tests/attempts/:attemptId/result"
+              element={
+                <ProtectedRoute roles={['manager', 'staff']}>
+                  <TestAttemptResult />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Settings (profil, keamanan, tampilan) */}
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute roles={['manager', 'staff']}>
+                  <SettingsIndex />
                 </ProtectedRoute>
               }
             />
