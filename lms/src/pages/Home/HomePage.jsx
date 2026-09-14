@@ -3,6 +3,7 @@ import { Hero } from '../../components/landing/Hero'
 import { FeatureCard } from '../../components/landing/FeatureCard'
 import { Stats } from '../../components/landing/Stats'
 import { SectionBadge } from '../../components/landing/SectionBadge'
+import FloatingMascot from '../../components/landing/FloatingMascot'
 import { features } from '../../data/content'
 //import { AuroraBackground } from '../../components/landing/AuroraBackground'//
 import logo from '../../assets/logokdkmp.png'
@@ -18,6 +19,7 @@ export function HomePage({ dark, onToggleTheme }) {
       </div>
 
       <Header dark={dark} onToggleTheme={onToggleTheme} />
+      <FloatingMascot />
 
       <main>
         <Hero />

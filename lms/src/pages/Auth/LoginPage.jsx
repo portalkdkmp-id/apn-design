@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { AuthCard } from '../../components/auth/AuthCard'
 import { AuthHeader } from '../../components/auth/AuthHeader'
@@ -6,11 +7,15 @@ import { AuthInput } from '../../components/auth/AuthInput'
 import { PasswordInput } from '../../components/auth/PasswordInput'
 import { AuthFooterLink } from '../../components/auth/AuthFooterLink'
 import { AuthLayout } from '../../layouts/AuthLayout'
+import { useAuth } from '../../context/AuthContext'
+import { homePathForRole } from '../../data/auth'
 
 export function LoginPage({ dark, onToggleTheme }) {
   const [form, setForm] = useState({ login: '', password: '', remember: false })
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
   const update = (event) => {
     const { name, value, type, checked } = event.target
@@ -25,7 +30,22 @@ export function LoginPage({ dark, onToggleTheme }) {
     if (!form.login.trim()) next.login = 'Email atau nomor handphone wajib diisi.'
     if (!form.password) next.password = 'Kata sandi wajib diisi.'
     setErrors(next)
-    setSubmitted(Object.keys(next).length === 0)
+
+    if (Object.keys(next).length === 0) {
+      const result = login({ login: form.login, password: form.password })
+
+      if (!result.user) {
+        setErrors({ login: result.error })
+        setSubmitted(false)
+        return
+      }
+
+      setSubmitted(true)
+      navigate(homePathForRole(result.user.role), { replace: true })
+      return
+    }
+
+    setSubmitted(false)
   }
 
   return (
